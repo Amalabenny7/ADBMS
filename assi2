@@ -411,4 +411,127 @@ mysql> select*from Customers;
 mysql> SET FOREIGN_KEY_CHECKS=1;
 Query OK, 0 rows affected (0.00 sec)
 
+2. Delete all purchase details of items its quantity less than 2. 
+
+mysql> select * from Invoice_items;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    101 |  111 |       10 |
+|    102 |  222 |        2 |
+|    103 |  333 |        1 |
+|    104 |  444 |        2 |
+|    105 |  555 |        1 |
+|    105 |  111 |        3 |
+|    103 |  555 |        2 |
+|    103 |  555 |        4 |
++--------+------+----------+
+8 rows in set (0.00 sec)
+
+mysql> DELETE FROM Invoice_items WHERE quantity<2;
+Query OK, 2 rows affected (0.01 sec)
+
+mysql> select * from Invoice_items;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    101 |  111 |       10 |
+|    102 |  222 |        2 |
+|    104 |  444 |        2 |
+|    105 |  111 |        3 |
+|    103 |  555 |        2 |
+|    103 |  555 |        4 |
++--------+------+----------+
+6 rows in set (0.00 sec)
+
+3. Delete the purchase details of product ‘pen’ in the in_id ‘101’. 
+
+mysql> select * from Invoice_items;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    101 |  111 |       10 |
+|    102 |  222 |        2 |
+|    104 |  444 |        2 |
+|    105 |  111 |        3 |
+|    103 |  555 |        2 |
+|    103 |  555 |        4 |
++--------+------+----------+
+6 rows in set (0.00 sec)
+
+mysql> delete from Invoice_items where inv_id=101 and pid=111;
+Query OK, 1 row affected (0.01 sec)
+
+
+mysql> select * from Invoice_items;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    102 |  222 |        2 |
+|    104 |  444 |        2 |
+|    105 |  111 |        3 |
+|    103 |  555 |        2 |
+|    103 |  555 |        4 |
++--------+------+----------+
+5 rows in set (0.00 sec)
+
+
+4. Delete details of employees who does not have phone number. 
+
+ mysql> set foreign_key_checks=0;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>  select * from Customers;
++---------+---------+---------+-------+----------+
+| cust_id | name    | address | city  | ph_no    |
++---------+---------+---------+-------+----------+
+|   10002 | DIYA    | MNBVC   | EKM   | 87654567 |
+|   10003 | HUDHA   | SDFGH   | TVM   | 56889545 |
+|   10004 | AMALA   | abcdefg | kochi | 98765421 |
+|   10005 | ARCHANA | FHJKD   | MLP   |     NULL |
++---------+---------+---------+-------+----------+
+4 rows in set (0.01 sec)
+
+mysql> delete from Customers where ph_no is null;
+Query OK, 1 row affected (0.00 sec)
+
+
+mysql>  select * from Customers;
++---------+-------+---------+-------+----------+
+| cust_id | name  | address | city  | ph_no    |
++---------+-------+---------+-------+----------+
+|   10002 | DIYA  | MNBVC   | EKM   | 87654567 |
+|   10003 | HUDHA | SDFGH   | TVM   | 56889545 |
+|   10004 | AMALA | abcdefg | kochi | 98765421 |
++---------+-------+---------+-------+----------+
+3 rows in set (0.01 sec)
+
+mysql> set foreign_key_checks=1;
+Query OK, 0 rows affected (0.00 sec)
+
+5. Delete all records from STUDENT table. 
+
+mysql> use amala;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+mysql> select * from STUDENT;
++---------+---------+------+---------+--------+
+| roll_no | name    | age  | address | gender |
++---------+---------+------+---------+--------+
+|       1 | HADIYA  |   22 | ABDCH   | F      |
+|       2 | DIYA    |   22 | MNBVC   | F      |
+|       3 | HUDHA   |   22 | SDFGH   | F      |
+|       4 | ANUGRAH |   22 | KLJHG   | m      |
+|       5 | ABHI    |   22 | LAKSJDH | m      |
++---------+---------+------+---------+--------+
+5 rows in set (0.00 sec)
+
+mysql> delete from STUDENT;
+Query OK, 5 rows affected (0.01 sec)
+
+mysql> select * from STUDENT;
+Empty set (0.00 sec)
+
+
 
