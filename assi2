@@ -446,6 +446,18 @@ mysql> select * from Invoice_items;
 
 3. Delete the purchase details of product ‘pen’ in the in_id ‘101’. 
 
+mysql> select * from Products;
++-----+--------+-------+
+| pid | pname  | price |
++-----+--------+-------+
+| 111 | pen    |    56 |
+| 222 | pencil |    61 |
+| 333 | soap   |   107 |
+| 444 | book   |    71 |
+| 555 | box    |    82 |
++-----+--------+-------+
+5 rows in set (0.01 sec)
+
 mysql> select * from Invoice_items;
 +--------+------+----------+
 | inv_id | pid  | quantity |
