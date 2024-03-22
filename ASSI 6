@@ -1,0 +1,76 @@
+1.List product name, price except soap on price order. 
+
+mysql> SELECT * FROM Products;
++-----+--------+-------+
+| pid | pname  | price |
++-----+--------+-------+
+| 111 | pen    |    56 |
+| 222 | pencil |    61 |
+| 333 | soap   |   107 |
+| 444 | book   |    71 |
+| 555 | box    |    82 |
+| 666 | bag    |   200 |
++-----+--------+-------+
+6 rows in set (0.01 sec)
+
+mysql> select * from Products where pname!='soap';
++-----+--------+-------+
+| pid | pname  | price |
++-----+--------+-------+
+| 111 | pen    |    56 |
+| 222 | pencil |    61 |
+| 444 | book   |    71 |
+| 555 | box    |    82 |
+| 666 | bag    |   200 |
++-----+--------+-------+
+5 rows in set (0.00 sec)
+
+2.Find minimum, maximum and average price of products. 
+
+mysql> select min(price),max(price),avg(price) from Products;
++------------+------------+------------+
+| min(price) | max(price) | avg(price) |
++------------+------------+------------+
+|         56 |        200 |    96.1667 |
++------------+------------+------------+
+1 row in set (0.00 sec)
+
+3.Find number of customers in each city. 
+
+mysql> select * from Customers;
++---------+--------+---------+-------+------------+
+| cust_id | name   | address | city  | ph_no      |
++---------+--------+---------+-------+------------+
+|   10001 | anu    | wrdfg   | kochi |   23358988 |
+|   10002 | DIYA   | MNBVC   | EKM   |   87654567 |
+|   10003 | HUDHA  | SDFGH   | TVM   |   56889545 |
+|   10004 | AMALA  | abcdefg | kochi |   98765421 |
+|   10005 | Sony   | wrrtygg | tvm   |  237878778 |
+|   10006 | Sonia  | thnmgg  | TVM   |  345678778 |
+|   10007 | Soniya | ghjkgg  | TVM   |  346678778 |
+|   10008 | Sona   | qweg    | EKM   | 1213478778 |
++---------+--------+---------+-------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select city,count(*) from Customers group by city;
++-------+----------+
+| city  | count(*) |
++-------+----------+
+| kochi |        2 |
+| EKM   |        2 |
+| TVM   |        4 |
++-------+----------+
+3 rows in set (0.01 sec)
+
+4.Find number of customers in each city, only include city with more than 3 customers.
+
+mysql> select city,count(*) from Customers group by city having count(city)>3;
++------+----------+
+| city | count(*) |
++------+----------+
+| TVM  |        4 |
++------+----------+
+1 row in set (0.00 sec)
+
+
+
