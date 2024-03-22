@@ -1,0 +1,178 @@
+mysql> use INVOICE;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+
+1. List all customer details. 
+
+mysql> select * from Customers;
++---------+--------+---------+-------+------------+
+| cust_id | name   | address | city  | ph_no      |
++---------+--------+---------+-------+------------+
+|   10001 | anu    | wrdfg   | kochi |   23358988 |
+|   10002 | DIYA   | MNBVC   | EKM   |   87654567 |
+|   10003 | HUDHA  | SDFGH   | TVM   |   56889545 |
+|   10004 | AMALA  | abcdefg | kochi |   98765421 |
+|   10005 | Sony   | wrrtygg | tvm   |  237878778 |
+|   10006 | Sonia  | thnmgg  | TVM   |  345678778 |
+|   10007 | Soniya | ghjkgg  | TVM   |  346678778 |
+|   10008 | Sona   | qweg    | EKM   | 1213478778 |
++---------+--------+---------+-------+------------+
+8 rows in set (0.00 sec)
+
+2.List pname, price of all products. 
+
+mysql> select * from Products;
++-----+--------+-------+
+| pid | pname  | price |
++-----+--------+-------+
+| 111 | pen    |    56 |
+| 222 | pencil |    61 |
+| 333 | soap   |   107 |
+| 444 | book   |    71 |
+| 555 | box    |    82 |
++-----+--------+-------+
+5 rows in set (0.00 sec)
+
+3.List all invoice items, avoid duplicates. 
+
+mysql> select pid from Invoice_items;
++------+
+| pid  |
++------+
+|  111 |
+|  222 |
+|  444 |
+|  555 |
+|  555 |
++------+
+5 rows in set (0.00 sec)
+
+mysql> select distinct pid from Invoice_items
+;
++------+
+| pid  |
++------+
+|  111 |
+|  222 |
+|  444 |
+|  555 |
++------+
+4 rows in set (0.00 sec)
+
+4. List product price between 50rs and 150rs 
+
+mysql> select * from Products;
++-----+--------+-------+
+| pid | pname  | price |
++-----+--------+-------+
+| 111 | pen    |    56 |
+| 222 | pencil |    61 |
+| 333 | soap   |   107 |
+| 444 | book   |    71 |
+| 555 | box    |    82 |
+| 666 | bag    |   200 |
++-----+--------+-------+
+6 rows in set (0.00 sec)
+
+mysql>  select * from Products where price between 50 and 150;
++-----+--------+-------+
+| pid | pname  | price |
++-----+--------+-------+
+| 111 | pen    |    56 |
+| 222 | pencil |    61 |
+| 333 | soap   |   107 |
+| 444 | book   |    71 |
+| 555 | box    |    82 |
++-----+--------+-------+
+5 rows in set (0.00 sec)
+
+5.List the customer details who lives in ‘ekm’,’tvm’.
+
+mysql> select * from Customers;
++---------+--------+---------+-------+------------+
+| cust_id | name   | address | city  | ph_no      |
++---------+--------+---------+-------+------------+
+|   10001 | anu    | wrdfg   | kochi |   23358988 |
+|   10002 | DIYA   | MNBVC   | EKM   |   87654567 |
+|   10003 | HUDHA  | SDFGH   | TVM   |   56889545 |
+|   10004 | AMALA  | abcdefg | kochi |   98765421 |
+|   10005 | Sony   | wrrtygg | tvm   |  237878778 |
+|   10006 | Sonia  | thnmgg  | TVM   |  345678778 |
+|   10007 | Soniya | ghjkgg  | TVM   |  346678778 |
+|   10008 | Sona   | qweg    | EKM   | 1213478778 |
++---------+--------+---------+-------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from Customers where city in("EKM","TVM");
++---------+--------+---------+------+------------+
+| cust_id | name   | address | city | ph_no      |
++---------+--------+---------+------+------------+
+|   10002 | DIYA   | MNBVC   | EKM  |   87654567 |
+|   10003 | HUDHA  | SDFGH   | TVM  |   56889545 |
+|   10005 | Sony   | wrrtygg | tvm  |  237878778 |
+|   10006 | Sonia  | thnmgg  | TVM  |  345678778 |
+|   10007 | Soniya | ghjkgg  | TVM  |  346678778 |
+|   10008 | Sona   | qweg    | EKM  | 1213478778 |
++---------+--------+---------+------+------------+
+6 rows in set (0.00 sec)
+
+
+6.List the invoice details from 1st January 2021 to 31st march 2021 
+
+mysql> select * from Invoice_masters;
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|    101 |   10001 | 2021-02-28 |
+|    102 |   10002 | 2021-05-25 |
+|    103 |   10003 | 2022-08-18 |
+|    104 |   10004 | 2022-10-08 |
+|    105 |   10005 | 2021-02-18 |
+|    106 |   10006 | 2021-02-10 |
+|    107 |   10007 | 2021-03-10 |
++--------+---------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from Invoice_masters where inv_date between 20210101 and 20210331;
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|    101 |   10001 | 2021-02-28 |
+|    105 |   10005 | 2021-02-18 |
+|    106 |   10006 | 2021-02-10 |
+|    107 |   10007 | 2021-03-10 |
++--------+---------+------------+
+4 rows in set (0.00 sec)
+
+
+7.List the customer details who not live in ‘tvm’. 
+
+mysql> select * from Customers;
++---------+--------+---------+-------+------------+
+| cust_id | name   | address | city  | ph_no      |
++---------+--------+---------+-------+------------+
+|   10001 | anu    | wrdfg   | kochi |   23358988 |
+|   10002 | DIYA   | MNBVC   | EKM   |   87654567 |
+|   10003 | HUDHA  | SDFGH   | TVM   |   56889545 |
+|   10004 | AMALA  | abcdefg | kochi |   98765421 |
+|   10005 | Sony   | wrrtygg | tvm   |  237878778 |
+|   10006 | Sonia  | thnmgg  | TVM   |  345678778 |
+|   10007 | Soniya | ghjkgg  | TVM   |  346678778 |
+|   10008 | Sona   | qweg    | EKM   | 1213478778 |
++---------+--------+---------+-------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from Customers where city not in("TVM");
++---------+-------+---------+-------+------------+
+| cust_id | name  | address | city  | ph_no      |
++---------+-------+---------+-------+------------+
+|   10001 | anu   | wrdfg   | kochi |   23358988 |
+|   10002 | DIYA  | MNBVC   | EKM   |   87654567 |
+|   10004 | AMALA | abcdefg | kochi |   98765421 |
+|   10008 | Sona  | qweg    | EKM   | 1213478778 |
++---------+-------+---------+-------+------------+
+4 rows in set (0.00 sec)
+
+
