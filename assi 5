@@ -1,0 +1,116 @@
+1.List the customer names of invoice date 25th may 2021.
+
+mysql> select * from Customers;
++---------+--------+---------+-------+------------+
+| cust_id | name   | address | city  | ph_no      |
++---------+--------+---------+-------+------------+
+|   10001 | anu    | wrdfg   | kochi |   23358988 |
+|   10002 | DIYA   | MNBVC   | EKM   |   87654567 |
+|   10003 | HUDHA  | SDFGH   | TVM   |   56889545 |
+|   10004 | AMALA  | abcdefg | kochi |   98765421 |
+|   10005 | Sony   | wrrtygg | tvm   |  237878778 |
+|   10006 | Sonia  | thnmgg  | TVM   |  345678778 |
+|   10007 | Soniya | ghjkgg  | TVM   |  346678778 |
+|   10008 | Sona   | qweg    | EKM   | 1213478778 |
++---------+--------+---------+-------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from Invoice_masters;
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|    101 |   10001 | 2021-02-28 |
+|    102 |   10002 | 2021-05-25 |
+|    103 |   10003 | 2022-08-18 |
+|    104 |   10004 | 2022-10-08 |
+|    105 |   10005 | 2021-02-18 |
+|    106 |   10006 | 2021-02-10 |
+|    107 |   10007 | 2021-03-10 |
++--------+---------+------------+
+7 rows in set (0.00 sec)
+
+
+mysql> select name from Customers where cust_id in(select cust_id from Invoice_masters where inv_date=20210525);
++------+
+| name |
++------+
+| DIYA |
++------+
+1 row in set (0.00 sec)
+
+
+2.List the product name and price of each invoice item.
+
+mysql> select * from Products;
++-----+--------+-------+
+| pid | pname  | price |
++-----+--------+-------+
+| 111 | pen    |    56 |
+| 222 | pencil |    61 |
+| 333 | soap   |   107 |
+| 444 | book   |    71 |
+| 555 | box    |    82 |
+| 666 | bag    |   200 |
++-----+--------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select * from Invoice_items;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    102 |  222 |        2 |
+|    104 |  444 |        2 |
+|    105 |  111 |        3 |
+|    103 |  555 |        2 |
+|    103 |  555 |        4 |
++--------+------+----------+
+5 rows in set (0.00 sec)
+
+mysql>  select pname,price from Products where pid IN(select pid from Invoice_items);
++--------+-------+
+| pname  | price |
++--------+-------+
+| pen    |    56 |
+| pencil |    61 |
+| book   |    71 |
+| box    |    82 |
++--------+-------+
+4 rows in set (0.00 sec)
+
+3.List the product names, only include their purchased quantity more than 3.
+
+mysql> select * from Products;
++-----+--------+-------+
+| pid | pname  | price |
++-----+--------+-------+
+| 111 | pen    |    56 |
+| 222 | pencil |    61 |
+| 333 | soap   |   107 |
+| 444 | book   |    71 |
+| 555 | box    |    82 |
+| 666 | bag    |   200 |
++-----+--------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select * from Invoice_items;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    102 |  222 |        2 |
+|    104 |  444 |        2 |
+|    105 |  111 |        3 |
+|    103 |  555 |        2 |
+|    103 |  555 |        4 |
++--------+------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select pname from Products where pid IN (select pid from Invoice_items where quantity >3);
++-------+
+| pname |
++-------+
+| box   |
++-------+
+1 row in set (0.00 sec)
+
+
+
