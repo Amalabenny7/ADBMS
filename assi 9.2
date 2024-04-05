@@ -1,0 +1,33 @@
+PL/SQL PROGRAMS – FUNCTIONS
+
+1.Create a function to calculate price_range(low, medium, high) of each product.
+
+mysql> delimiter //
+mysql> create FUNCTION PriceInd2(Price int) returns varchar(20)
+    -> deterministic
+    -> begin
+    -> declare Price_Ind varchar(20);
+    -> if Price<=70 then set Price_Ind='LOW';
+    -> elseif(Price>70 and Price<=90) then set Price_Ind='MEDIUM';
+    -> elseif Price>90 then set Price_Ind='HIGH';
+    -> End if;
+    -> return(Price_Ind);
+    -> end
+    -> //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select pid,pname,price,PriceInd2(price) from Products;
+    -> //
++-----+--------+-------+------------------+
+| pid | pname  | price | PriceInd2(price) |
++-----+--------+-------+------------------+
+| 111 | pen    |    56 | LOW              |
+| 222 | pencil |    61 | LOW              |
+| 333 | soap   |   107 | HIGH             |
+| 444 | book   |    71 | MEDIUM           |
+| 555 | box    |    82 | MEDIUM           |
+| 666 | bag    |   200 | HIGH             |
++-----+--------+-------+------------------+
+6 rows in set (0.00 sec)
+
+
