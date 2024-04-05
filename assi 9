@@ -1,0 +1,71 @@
+PL/SQL PROGRAMS- STORED PROCEDURES
+
+1.Create a procedure to display all tables in the invoice database. 
+
+mysql> delimiter //
+
+mysql> create PROCEDURE Invoice1()
+    -> begin
+    -> select * from Customers;
+    -> select * from Products;
+    -> select * from Invoice_masters;
+    -> select * from Invoice_items;
+    -> end
+    -> //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call Invoice1();
+    -> //
++---------+--------+---------+-------+------------+
+| cust_id | name   | address | city  | ph_no      |
++---------+--------+---------+-------+------------+
+|   10001 | anu    | wrdfg   | kochi |   23358988 |
+|   10002 | DIYA   | MNBVC   | EKM   |   87654567 |
+|   10003 | HUDHA  | SDFGH   | TVM   |   56889545 |
+|   10004 | AMALA  | abcdefg | kochi |   98765421 |
+|   10005 | Sony   | wrrtygg | tvm   |  237878778 |
+|   10006 | Sonia  | thnmgg  | TVM   |  345678778 |
+|   10007 | Soniya | ghjkgg  | TVM   |  346678778 |
+|   10008 | Sona   | qweg    | EKM   | 1213478778 |
++---------+--------+---------+-------+------------+
+8 rows in set (0.00 sec)
+
++-----+--------+-------+
+| pid | pname  | price |
++-----+--------+-------+
+| 111 | pen    |    56 |
+| 222 | pencil |    61 |
+| 333 | soap   |   107 |
+| 444 | book   |    71 |
+| 555 | box    |    82 |
+| 666 | bag    |   200 |
++-----+--------+-------+
+6 rows in set (0.00 sec)
+
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|    101 |   10001 | 2021-02-28 |
+|    102 |   10002 | 2021-05-25 |
+|    103 |   10003 | 2022-08-18 |
+|    104 |   10004 | 2022-10-08 |
+|    105 |   10005 | 2021-02-18 |
+|    106 |   10006 | 2021-02-10 |
+|    107 |   10007 | 2021-03-10 |
++--------+---------+------------+
+7 rows in set (0.00 sec)
+
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    102 |  222 |        2 |
+|    104 |  444 |        2 |
+|    105 |  111 |        3 |
+|    103 |  555 |        2 |
+|    103 |  555 |        4 |
++--------+------+----------+
+5 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+
