@@ -113,4 +113,4 @@ mysql> select pname from Products where pid IN (select pid from Invoice_items wh
 1 row in set (0.00 sec)
 
 
-
+//VERIFIED
