@@ -44,4 +44,4 @@ mysql> select * from purchase;
 +--------+
 7 rows in set (0.00 sec)
 
-
+//VERIFIED
