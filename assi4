@@ -175,4 +175,4 @@ mysql> select * from Customers where city not in("TVM");
 +---------+-------+---------+-------+------------+
 4 rows in set (0.00 sec)
 
-
+//VERIFIED
