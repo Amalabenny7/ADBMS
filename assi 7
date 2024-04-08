@@ -47,4 +47,4 @@ mysql> select pname, quantity from Products inner join Invoice_items on  Product
 +---------+------+---------+------+----------+--------+---------+------------+--------+------+----------+-----+--------+-------+
 1 row in set (0.00 sec)
 
-
+//VERIFIED
