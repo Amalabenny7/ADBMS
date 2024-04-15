@@ -1,0 +1,88 @@
+ 1.Write a MongoDB query to display the customer documents having city ‘ekm’,’tvm’. 
+ 
+ INVOICE> db.customers.find({$or:[{"city":"ekm"},{"city":"kochi"}]})
+[
+  {
+    _id: ObjectId("661389a081fb5ae4ecd0798d"),
+    id: 10002,
+    name: 'diya',
+    address: 'rtyu',
+    city: 'ekm',
+    ph_no: 22345667
+  },
+  {
+    _id: ObjectId("66138a3081fb5ae4ecd07990"),
+    id: 10005,
+    name: 'amala',
+    address: 'fghj',
+    city: 'kochi',
+    ph_no: 45678902
+  }
+]
+
+2.Write a MongoDB query to display all customer documents who have age >50.
+
+INVOICE> db.customers.find({age:{$gt:50}}).pretty()
+[
+  {
+    _id: ObjectId("661cadcd8f8a5c39e2a4f2c6"),
+    id: 10007,
+    name: 'manu',
+    address: 'mnbv',
+    city: 'palakad',
+    ph_no: 321654,
+    age: 56
+  },
+  {
+    _id: ObjectId("661cadcd8f8a5c39e2a4f2c7"),
+    id: 10008,
+    name: 'anjali',
+    address: 'hgfd',
+    city: 'mlp',
+    ph_no: 753951,
+    age: 60
+  }
+]
+
+
+
+3.Write a MongoDB query to find customer documents who not live in ‘tvm’.
+
+INVOICE>  db.customers.find({city:{$ne:"tvm"}}).pretty()
+[
+  {
+    _id: ObjectId("661389a081fb5ae4ecd0798d"),
+    id: 10002,
+    name: 'diya',
+    address: 'rtyu',
+    city: 'ekm',
+    ph_no: 22345667
+  },
+  {
+    _id: ObjectId("66138a3081fb5ae4ecd07990"),
+    id: 10005,
+    name: 'amala',
+    address: 'fghj',
+    city: 'kochi',
+    ph_no: 45678902
+  },
+  {
+    _id: ObjectId("661cadcd8f8a5c39e2a4f2c6"),
+    id: 10007,
+    name: 'manu',
+    address: 'mnbv',
+    city: 'palakad',
+    ph_no: 321654,
+    age: 56
+  },
+  {
+    _id: ObjectId("661cadcd8f8a5c39e2a4f2c7"),
+    id: 10008,
+    name: 'anjali',
+    address: 'hgfd',
+    city: 'mlp',
+    ph_no: 753951,
+    age: 60
+  }
+]
+
