@@ -1,0 +1,154 @@
+NoSQL – CRUD
+
+
+1. Write a MongoDB query to create an INVOICE database and collections (CUSTOMER, PRODUCT) and its corresponding documents.
+
+test> use INVOICE
+switched to db INVOICE
+
+INVOICE> db.customers.insertMany([{id:10001,name:'anu',address:'qwer',city:'kochi',ph_no:112345}])
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId("661388ca81fb5ae4ecd0798c") }
+}
+INVOICE> db.customers.insertMany([{id:10002,name:'diya',address:'rtyu',city:'ekm',ph_no:22345667},{id:10003,name:'hudha',address:'uiop',city:'tvm',ph_no:09876}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("661389a081fb5ae4ecd0798d"),
+    '1': ObjectId("661389a081fb5ae4ecd0798e")
+  }
+}
+INVOICE> db.customers.insertMany([{id:10004,name:'sony',address:'rtyui',city:'tvm',ph_no:9876543},{id:10005,name:'amala',address:'fghj',city:'kochi',ph_no:45678902}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("66138a3081fb5ae4ecd0798f"),
+    '1': ObjectId("66138a3081fb5ae4ecd07990")
+  }
+}
+
+
+//products
+
+INVOICE> db.products.insertMany([{pid:111,pname:'pen',price:56},{pid:222,pname:'pencil',price:61},{pid:333,pname:'soap',price:'107'},{pid:444,pname:'book',price:'82'},{pid:555,pname:'box',price:'71'}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("66138d3181fb5ae4ecd07991"),
+    '1': ObjectId("66138d3181fb5ae4ecd07992"),
+    '2': ObjectId("66138d3181fb5ae4ecd07993"),
+    '3': ObjectId("66138d3181fb5ae4ecd07994"),
+    '4': ObjectId("66138d3181fb5ae4ecd07995"),
+    '5': ObjectId("66138d3181fb5ae4ecd07996")
+  }
+}
+
+2.Write a MongoDB query to find all documents from the collection CUSTOMER
+
+INVOICE> db.customers.find().pretty()
+[
+  {
+    _id: ObjectId("661388ca81fb5ae4ecd0798c"),
+    id: 10001,
+    name: 'anu',
+    address: 'qwer',
+    city: 'kochi',
+    ph_no: 112345
+  },
+  {
+    _id: ObjectId("661389a081fb5ae4ecd0798d"),
+    id: 10002,
+    name: 'diya',
+    address: 'rtyu',
+    city: 'ekm',
+    ph_no: 22345667
+  },
+  {
+    _id: ObjectId("661389a081fb5ae4ecd0798e"),
+    id: 10003,
+    name: 'hudha',
+    address: 'uiop',
+    city: 'tvm',
+    ph_no: 9876
+  },
+  {
+    _id: ObjectId("66138a3081fb5ae4ecd0798f"),
+    id: 10004,
+    name: 'sony',
+    address: 'rtyui',
+    city: 'tvm',
+    ph_no: 9876543
+  },
+  {
+    _id: ObjectId("66138a3081fb5ae4ecd07990"),
+    id: 10005,
+    name: 'amala',
+    address: 'fghj',
+    city: 'kochi',
+    ph_no: 45678902
+  }
+]
+
+
+3.Write a MongoDB query to update the city in the collection CUSTOMER
+
+INVOICE>  db.customers.updateOne({"city":"kochi"},{$set:{"city":"Kozhikode"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+INVOICE>  db.customers.updateOne({"city":"kochi"},{$set:{"city":"Kozhikode"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+4.Write a MongoDB query to delete the first matched document whose city is “Calicut”
+
+INVOICE> db.customers.deleteOne({"city":"Kozhikode"})
+{ acknowledged: true, deletedCount: 1 }
+
+INVOICE> db.customers.find().pretty()
+[
+  {
+    _id: ObjectId("661389a081fb5ae4ecd0798d"),
+    id: 10002,
+    name: 'diya',
+    address: 'rtyu',
+    city: 'ekm',
+    ph_no: 22345667
+  },
+  {
+    _id: ObjectId("661389a081fb5ae4ecd0798e"),
+    id: 10003,
+    name: 'hudha',
+    address: 'uiop',
+    city: 'tvm',
+    ph_no: 9876
+  },
+  {
+    _id: ObjectId("66138a3081fb5ae4ecd0798f"),
+    id: 10004,
+    name: 'sony',
+    address: 'rtyui',
+    city: 'tvm',
+    ph_no: 9876543
+  },
+  {
+    _id: ObjectId("66138a3081fb5ae4ecd07990"),
+    id: 10005,
+    name: 'amala',
+    address: 'fghj',
+    city: 'kochi',
+    ph_no: 45678902
+  }
+]
+
