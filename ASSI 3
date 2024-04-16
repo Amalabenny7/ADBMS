@@ -1,0 +1,238 @@
+TCL & DCL COMMANDS 
+                    
+ a) TCL COMMANDS
+
+1.Commit
+-----------
+
+mysql> use amala
+
+mysql> set autocommit=off;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from PERSON;
++------+---------+-----------+------+-----------+
+| SSN  | name    | city      | dob  | aadhar_no |
++------+---------+-----------+------+-----------+
+|    1 | AMALA   | KOZHIKODE | 2002 |   1234576 |
+|    2 | ANUGRAH | KOZHIKODE | 2003 |   1256473 |
+|    3 | ARCHANA | KOTTAYAM  | 2002 |  12576643 |
+|    4 | HUDHA   | MALAPURAM | 2002 |   1253456 |
+|    5 | DIYA    | PALAKAD   | 2002 |  86356893 |
++------+---------+-----------+------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> insert into PERSON values(6,"kuku","kottayam",2003,6358459);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from PERSON;
++------+---------+-----------+------+-----------+
+| SSN  | name    | city      | dob  | aadhar_no |
++------+---------+-----------+------+-----------+
+|    1 | AMALA   | KOZHIKODE | 2002 |   1234576 |
+|    2 | ANUGRAH | KOZHIKODE | 2003 |   1256473 |
+|    3 | ARCHANA | KOTTAYAM  | 2002 |  12576643 |
+|    4 | HUDHA   | MALAPURAM | 2002 |   1253456 |
+|    5 | DIYA    | PALAKAD   | 2002 |  86356893 |
+|    6 | kuku    | kottayam  | 2003 |   6358459 |
++------+---------+-----------+------+-----------+
+6 rows in set (0.00 sec)
+
+2.Rollback
+-----------
+
+mysql> set autocommit=off;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delete from PERSON where SSN=3;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from PERSON;
++------+---------+-----------+------+-----------+
+| SSN  | name    | city      | dob  | aadhar_no |
++------+---------+-----------+------+-----------+
+|    1 | AMALA   | KOZHIKODE | 2002 |   1234576 |
+|    2 | ANUGRAH | KOZHIKODE | 2003 |   1256473 |
+|    4 | HUDHA   | MALAPURAM | 2002 |   1253456 |
+|    5 | DIYA    | PALAKAD   | 2002 |  86356893 |
+|    6 | kuku    | kottayam  | 2003 |   6358459 |
++------+---------+-----------+------+-----------+
+5 rows in set (0.00 sec)
+
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>  select * from PERSON;
++------+---------+-----------+------+-----------+
+| SSN  | name    | city      | dob  | aadhar_no |
++------+---------+-----------+------+-----------+
+|    1 | AMALA   | KOZHIKODE | 2002 |   1234576 |
+|    2 | ANUGRAH | KOZHIKODE | 2003 |   1256473 |
+|    3 | ARCHANA | KOTTAYAM  | 2002 |  12576643 |
+|    4 | HUDHA   | MALAPURAM | 2002 |   1253456 |
+|    5 | DIYA    | PALAKAD   | 2002 |  86356893 |
+|    6 | kuku    | kottayam  | 2003 |   6358459 |
++------+---------+-----------+------+-----------+
+6 rows in set (0.00 sec)
+
+
+3.Savepoint
+------------
+
+mysql> set autocommit=off;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into PERSON values(7,"sinku","thrissur",2002,748596);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint s1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into PERSON values(8,"linku","trivandrum",1999,565654783);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint s2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into PERSON values(9,"zinku","palakad",1995,1145785698);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint s3;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from PERSON;
++------+---------+------------+------+------------+
+| SSN  | name    | city       | dob  | aadhar_no  |
++------+---------+------------+------+------------+
+|    1 | AMALA   | KOZHIKODE  | 2002 |    1234576 |
+|    2 | ANUGRAH | KOZHIKODE  | 2003 |    1256473 |
+|    3 | ARCHANA | KOTTAYAM   | 2002 |   12576643 |
+|    4 | HUDHA   | MALAPURAM  | 2002 |    1253456 |
+|    5 | DIYA    | PALAKAD    | 2002 |   86356893 |
+|    6 | kuku    | kottayam   | 2003 |    6358459 |
+|    7 | sinku   | thrissur   | 2002 |     748596 |
+|    8 | linku   | trivandrum | 1999 |  565654783 |
+|    9 | zinku   | palakad    | 1995 | 1145785698 |
++------+---------+------------+------+------------+
+9 rows in set (0.00 sec)
+
+mysql> rollback to s2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from PERSON;
++------+---------+------------+------+-----------+
+| SSN  | name    | city       | dob  | aadhar_no |
++------+---------+------------+------+-----------+
+|    1 | AMALA   | KOZHIKODE  | 2002 |   1234576 |
+|    2 | ANUGRAH | KOZHIKODE  | 2003 |   1256473 |
+|    3 | ARCHANA | KOTTAYAM   | 2002 |  12576643 |
+|    4 | HUDHA   | MALAPURAM  | 2002 |   1253456 |
+|    5 | DIYA    | PALAKAD    | 2002 |  86356893 |
+|    6 | kuku    | kottayam   | 2003 |   6358459 |
+|    7 | sinku   | thrissur   | 2002 |    748596 |
+|    8 | linku   | trivandrum | 1999 | 565654783 |
++------+---------+------------+------+-----------+
+8 rows in set (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.01 sec)
+
+  b) DCL COMMAND
+
+1. GRANT
+---------
+
+
+
+mysql> create user minnu@'localhost' identified by 'Mypass34567@#!';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create user chinnu@'localhost' identified by 'Mypass1234@#!';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> grant all on INVOICE.Customers to minnu @'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show grants for minnu@'localhost';
++----------------------------------------------------------------------+
+| Grants for minnu@localhost                                           |
++----------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `minnu`@`localhost`                            |
+| GRANT ALL PRIVILEGES ON `INVOICE`.`Customers` TO `minnu`@`localhost` |
++----------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+
+mysql> grant select,update on INVOICE.Customers to minnu@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for minnu@'localhost';
++----------------------------------------------------------------------+
+| Grants for minnu@localhost                                           |
++----------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `minnu`@`localhost`                            |
+| GRANT ALL PRIVILEGES ON `INVOICE`.`Customers` TO `minnu`@`localhost` |
++----------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> grant insert,select on INVOICE.Customers to minnu@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for minnu@'localhost';
++----------------------------------------------------------------------+
+| Grants for minnu@localhost                                           |
++----------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `minnu`@`localhost`                            |
+| GRANT ALL PRIVILEGES ON `INVOICE`.`Customers` TO `minnu`@`localhost` |
++----------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> grant update,delete on INVOICE.* to chinnu@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show grants for chinnu@'localhost';
++-------------------------------------------------------------+
+| Grants for chinnu@localhost                                 |
++-------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `chinnu`@`localhost`                  |
+| GRANT UPDATE, DELETE ON `INVOICE`.* TO `chinnu`@`localhost` |
++-------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+
+
+
+
+REVOKE
+-------
+
+
+mysql> revoke select on INVOICE.Customers from minnu@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for minnu@'localhost';
++-------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Grants for minnu@localhost                                                                                                                            |
++-------------------------------------------------------------------------------------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `minnu`@`localhost`                                                                                                             |
+| GRANT INSERT, UPDATE, DELETE, CREATE, DROP, REFERENCES, INDEX, ALTER, CREATE VIEW, SHOW VIEW, TRIGGER ON `INVOICE`.`Customers` TO `minnu`@`localhost` |
++-------------------------------------------------------------------------------------------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> revoke delete on INVOICE.* from chinnu@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for chinnu@'localhost';
++-----------------------------------------------------+
+| Grants for chinnu@localhost                         |
++-----------------------------------------------------+
+| GRANT USAGE ON *.* TO `chinnu`@`localhost`          |
+| GRANT UPDATE ON `INVOICE`.* TO `chinnu`@`localhost` |
++-----------------------------------------------------+
+2 rows in set (0.00 sec)
+
+
