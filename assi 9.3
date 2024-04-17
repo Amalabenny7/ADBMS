@@ -1,0 +1,56 @@
+2.3  PL/SQL PROGRAMS – TRIGGERS
+
+1.Create a trigger to handle updates to the customer table.
+
+mysql> delimiter //
+
+mysql> create temporary table Customer1 select * from Customers;
+    -> //
+Query OK, 8 rows affected (0.00 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> desc Customer1;
+    -> //
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| cust_id | int         | NO   |     | NULL    | NULL  |
+| name    | varchar(10) | YES  |     | NULL    | NULL  |
+| address | varchar(20) | YES  |     | NULL    | NULL  |
+| city    | varchar(10) | YES  |     | NULL    | NULL  |
+| ph_no   | int         | YES  |     | NULL    | NULL  |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> create TRIGGER Cust_Trig after update on Customers for each row begin insert into Customer1  set cust_id=New.cust_id,name=New.name,address=New.address,city=New.city,ph_no=New.ph_no;
+    -> end //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from Customers;
+    -> //
++---------+--------+---------+-------+------------+
+| cust_id | name   | address | city  | ph_no      |
++---------+--------+---------+-------+------------+
+|   10001 | anu    | wrdfg   | kochi |   23358988 |
+|   10002 | DIYA   | MNBVC   | EKM   |   87654567 |
+|   10003 | HUDHA  | SDFGH   | TVM   |   56889545 |
+|   10004 | AMALA  | abcdefg | kochi |   98765421 |
+|   10005 | Sony   | wrrtygg | tvm   |  237878778 |
+|   10006 | Sonia  | thnmgg  | TVM   |  345678778 |
+|   10007 | Soniya | ghjkgg  | TVM   |  346678778 |
+|   10008 | Sona   | qweg    | EKM   | 1213478778 |
++---------+--------+---------+-------+------------+
+8 rows in set (0.00 sec)
+
+mysql> update Customers set city ="Idukki" where cust_id=10007;
+    -> //
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update Customers set ph_no =9870564 where cust_id=10006;
+    -> //
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+
+
