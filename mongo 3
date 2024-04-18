@@ -6,6 +6,10 @@ NoSQL – CRUD
 test> use INVOICE
 switched to db INVOICE
 
+INVOICE> db.createCollection("customers")
+{ ok: 1 }
+INVOICE> db.createCollection("products")
+{ ok: 1 }
 INVOICE> db.customers.insertMany([{id:10001,name:'anu',address:'qwer',city:'kochi',ph_no:112345}])
 {
   acknowledged: true,
