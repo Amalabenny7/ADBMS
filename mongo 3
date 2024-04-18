@@ -133,15 +133,6 @@ INVOICE>  db.customers.updateOne({"city":"kochi"},{$set:{"city":"Kozhikode"}})
   upsertedCount: 0
 }
 
-INVOICE>  db.customers.updateOne({"city":"kochi"},{$set:{"city":"Kozhikode"}})
-{
-  acknowledged: true,
-  insertedId: null,
-  matchedCount: 1,
-  modifiedCount: 1,
-  upsertedCount: 0
-}
-
 4.Write a MongoDB query to delete the first matched document whose city is “Calicut”
 
 INVOICE> db.customers.deleteOne({"city":"Kozhikode"})
