@@ -191,5 +191,4 @@ INVOICE> db.customers.find().pretty()
     age: 60
   }
 ]
-]
 
