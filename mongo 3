@@ -172,5 +172,24 @@ INVOICE> db.customers.find().pretty()
     city: 'kochi',
     ph_no: 45678902
   }
+ {
+    _id: ObjectId("661cadcd8f8a5c39e2a4f2c6"),
+    id: 10007,
+    name: 'manu',
+    address: 'mnbv',
+    city: 'palakad',
+    ph_no: 321654,
+    age: 56
+  },
+  {
+    _id: ObjectId("661cadcd8f8a5c39e2a4f2c7"),
+    id: 10008,
+    name: 'anjali',
+    address: 'hgfd',
+    city: 'mlp',
+    ph_no: 753951,
+    age: 60
+  }
+]
 ]
 
